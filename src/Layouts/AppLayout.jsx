@@ -1,8 +1,10 @@
 import React from 'react'
+import { Toaster } from 'react-hot-toast';
 
 const AppLayout = ({children}) => {
   return (
-    <div className="w-screen h-screen flex items-center justify-center bg-[#E7E7E7]">
+    <div className="font-poppins w-screen h-screen flex items-center justify-center bg-[#E7E7E7]">
+        <Toaster/>
         {children}
     </div>
   )
