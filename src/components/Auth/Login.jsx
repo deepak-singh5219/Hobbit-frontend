@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import CompanyLogo from '../../images/CompanyLogo.svg'
+import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 const Login = () => {	
   const [loginform,setLoginform] = useState({
@@ -7,6 +8,7 @@ const Login = () => {
 		 password:''
   })
   const [isRemember,setisRemember] = useState(true);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
 	setLoginform(
@@ -26,18 +28,18 @@ const Login = () => {
 
   }
   return (
-    <div className="flex flex-col max-w-md w-[538px] mx-4 p-6 rounded-[20px] sm:p-10 bg-white">
+    <div className="flex flex-col max-w-md w-[400px] mx-4 p-6 rounded-[20px] sm:p-10 bg-white">
 	<div className="mb-8 flex flex-col items-center justify-center text-center">
 		<img src={CompanyLogo} alt="" />
-		<p className="text-sm pt-2 text-[#808080]">Enter your email address and password</p>
+		<p className="text-xs pt-2 text-[#808080]">Enter your email address and password</p>
 	</div>
-	<form onSubmit={handleFormSubmit} className="w-full space-y-12 ng-untouched ng-pristine ng-valid">
+	<form onSubmit={handleFormSubmit} className="w-full space-y-6 ng-untouched ng-pristine ng-valid">
 		<div className="space-y-4">
 			<div>
-				<input type="email" name="email" onChange={handleChange} id="email" placeholder="Email" className="w-full px-3 py-2 border rounded-md border-gray-200" />
+				<input type="email" name="email" onChange={handleChange} id="email" placeholder="Email" className="w-full text-xs px-3 py-2 border rounded-md border-gray-200" />
 			</div>
 			<div>
-				<input type="password" name="password" onChange={handleChange} id="password" placeholder="Password" className="w-full px-3 py-2 border rounded-md border-gray-200" />
+				<input type="password" name="password" onChange={handleChange} id="password" placeholder="Password" className="w-full text-xs px-3 py-2 border rounded-md border-gray-200" />
 			</div>
       <div className="flex items-center">
         <input type="checkbox" name="isRemember" defaultChecked={isRemember} onChange={()=>setisRemember(!isRemember)} className="border rounded-md border-gray-200"/> 
@@ -48,8 +50,8 @@ const Login = () => {
 			</div>
 		</div>
 		<div>
-			<p className="px-6 mt-32 text-sm font-bold text-black text-center">Don't have an account?
-				<button rel="noopener noreferrer" href="#" className="hover:underline text-[#11ABDB] pl-2 underline"> Sign up</button>.
+			<p className="px-6 text-xs mt-32 text-sm font-bold text-black text-center">Don't have an account?
+				<button onClick={() => navigate('/signup')} rel="noopener noreferrer" href="#" className="hover:underline text-[#11ABDB] pl-2 underline"> Sign up</button>
 			</p>
 		</div>
 	</form>
