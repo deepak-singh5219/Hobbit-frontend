@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import CompanyLogo from '../../images/CompanyLogo.svg'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
+import axios from 'axios'
 const Login = () => {	
   const [loginform,setLoginform] = useState({
          email:'',
@@ -21,10 +22,23 @@ const Login = () => {
 
   const isdisabled = loginform.email && loginform.password;
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
 	e.preventDefault();
-	console.log(isRemember);
-	console.log(loginform);
+	try {
+		const res = await axios.post('api',JSON.stringify(loginform),
+		{
+			headers: {
+				'Content-Type': 'application/json'
+			  }
+		})
+		toast.success("Login Successful!");
+		// navigate(`${_id}/success`);
+		console.log("Response:",res);
+		
+	  } catch (err) {
+	
+		console.log("Error",err);
+	  }
 
   }
   return (
