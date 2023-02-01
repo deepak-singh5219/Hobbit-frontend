@@ -3,13 +3,15 @@ import CompanyLogo from '../../images/CompanyLogo.svg'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import countries from '../../Data/countries'
+import axios from 'axios'
+
 const Signup = () => {	
   const [signupform,setSignupform] = useState({
-    fullname:'',
+    name:'',
     phone:'',
     country:'',
     email:'',
-		 password:''
+		password:''
   })
   const navigate = useNavigate();
   
@@ -23,12 +25,27 @@ const Signup = () => {
 	)
   }
 
-  const isdisabled = signupform.fullname && signupform.phone && signupform.country && signupform.email && signupform.password;
+  const isdisabled = signupform.name && signupform.phone && signupform.country && signupform.email && signupform.password;
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
 	e.preventDefault();
 	
-	console.log(signupform);
+	try {
+    const res = await axios.post('api',JSON.stringify(signupform),
+    {
+        headers: {
+            'Content-Type': 'application/json'
+          }
+    })
+    toast.success("Signup Successful!");
+    navigate('/success');
+    console.log("Response:",res);
+    
+  } catch (err) {
+
+    console.log("Error",err);
+  }
+	
 
   }
   return (
@@ -40,7 +57,7 @@ const Signup = () => {
 	<form onSubmit={handleFormSubmit} className="w-full space-y-8 ng-untouched ng-pristine ng-valid">
 		<div className="space-y-4">
 			<div>
-				<input type="text" name="fullname" onChange={handleChange} placeholder="Full Name" className="w-full text-xs px-3 py-2 border rounded-md border-gray-200" />
+				<input type="text" name="name" onChange={handleChange} placeholder="Full Name" className="w-full text-xs px-3 py-2 border rounded-md border-gray-200" />
 			</div>
 			<div>
 				<input type="tel" name="phone" onChange={handleChange} pattern="[0-9]{10}" placeholder="Phone Number" className="w-full text-xs px-3 py-2 border rounded-md border-gray-200" />
